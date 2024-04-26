@@ -1,0 +1,40 @@
+﻿﻿﻿
+@page
+@model CareerConnector.Pages.SearchModel
+@{
+    ViewData["Title"] = "Search Page";
+}
+
+<h2>Search All Jobs</h2>
+<p>Please enter the title, Company, Description, State, or City of the Job you are searching for below.</p>
+<br />
+<form method="get">
+    <input type="text" name="searchTerm" placeholder="Search...">
+    <button type="submit">Search</button>
+</form>
+
+@if (Model.SearchResults != null && Model.SearchResults.Any())
+{
+    <div>
+        <table class="table">
+            <tr>
+                <th>Title</th>
+                <th>Employer</th>
+                <th>Description</th>
+                <th>State</th>
+                <th>City</th>
+            </tr>
+            @foreach (var job in Model.SearchResults)
+            {
+                <tr>
+                    <td>@job.Title</td>
+                    <td>@job.Employer.Company</td>
+                    <td>@job.Description</td>
+                    <td>@job.State</td>
+                    <td>@job.City</td>
+                </tr>
+            }
+
+        </table>
+    </div>
+}

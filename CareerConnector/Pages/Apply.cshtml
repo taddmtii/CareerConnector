@@ -1,0 +1,38 @@
+﻿@page
+@model CareerConnector.Pages.ApplyModel
+@{
+    ViewData["Title"] = "Job Application Form";
+}
+
+<h2 class="mb-4">Job Application Form</h2>
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="company" class="form-label">Company:</label>
+                <input id="company" type="text" class="form-control" asp-for="Company" />
+            </div>
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First Name:</label>
+                <input id="firstName" type="text" class="form-control" asp-for="FirstName" />
+            </div>
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Last Name:</label>
+                <input id="lastName" type="text" class="form-control" asp-for="LastName" />
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input id="email" type="email" class="form-control" asp-for="Email" />
+            </div>
+            <div class="mb-3">
+                <label for="skills" class="form-label">Skills:</label>
+                <input id="skills" type="text" class="form-control" asp-for="Skills" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Upload Resume (PDF only):</label>
+                <input type="file" class="form-control" asp-for="Resume" />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>

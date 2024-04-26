@@ -1,0 +1,49 @@
+﻿@page
+@model CareerConnector.Pages.Employers.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Employer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Employer.FirstName" class="control-label"></label>
+                <input asp-for="Employer.FirstName" class="form-control" />
+                <span asp-validation-for="Employer.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employer.LastName" class="control-label"></label>
+                <input asp-for="Employer.LastName" class="form-control" />
+                <span asp-validation-for="Employer.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employer.Company" class="control-label"></label>
+                <input asp-for="Employer.Company" class="form-control" />
+                <span asp-validation-for="Employer.Company" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employer.Email" class="control-label"></label>
+                <input asp-for="Employer.Email" class="form-control" />
+                <span asp-validation-for="Employer.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

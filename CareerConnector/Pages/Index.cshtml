@@ -1,0 +1,131 @@
+﻿﻿﻿
+@page
+@using CareerConnector.Models
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@if (Model.isEmployer.Count > 0) //Employer View
+{
+
+    <div>
+        <div style="display: flex; justify-content: space-between;">
+            <h1>Hello @User.Identity?.Name!</h1>
+            <a asp-page="/Jobs/Create" class="btn btn-primary">Create New Listing</a>
+        </div>
+        <h2>Here are all of the Jobs you have created:</h2>
+        <p>Your EmployerId is @Model.isEmployer[0].EmployerId</p>
+        <table class="table">
+            <tr>
+                <th>Title</th>
+                <th>Employer</th>
+                <th>Description</th>
+                <th>State</th>
+                <th>View Applications</th>
+                <th>Edit Listing</th>
+                <th>Delete Listing</th>
+            </tr>
+            @if (Model.jobs != null)
+            {
+                @foreach (var job in Model.jobs) //Needs to be changed for jobs from only a certain Employer Company
+                {
+                    @if (job.EmployerId == Model.isEmployer[0].EmployerId) {
+                        <tr>
+                            <td>@job.Title</td>
+                            <td>@job.Employer.Company</td>
+                            <td>@job.Description</td>
+                            <td>@job.State</td>
+                            <td><a asp-page="/ViewApplications" asp-route-JobId="@job?.JobId" class="btn btn-primary">View Applications</a></td>
+                            <td><a asp-page="/Jobs/Edit" asp-route-id="@job?.JobId" class="btn btn-primary">Edit Listing</a></td>
+                            <td><a asp-page="/Jobs/Delete" asp-route-id="@job?.JobId" class="btn btn-primary">Delete Listing</a></td>
+                        </tr>
+                    }
+                }
+            }
+        </table>
+    </div>
+}
+else if (User.Identity.IsAuthenticated) //Regular User View
+{
+    <div class="text-center">
+        <h1 class="display-4">Welcome to CareerConnector, @User.Identity?.Name!</h1>
+        <p>Connecting Talent to Opportunity: Your Gateway to Career Success</p>
+    </div>
+
+    <div>
+
+        <h1>Your Personal Favorites:</h1>
+        <table class="table">
+            <tr>
+                <th>Title</th>
+                <th>Employer</th>
+                <th>Description</th>
+                <th>State</th>
+                <th>More Information</th>
+                <th>Apply!</th>
+                <th>Unfavorite</th>
+            </tr>
+            @foreach (var fav in Model.favorites)
+            {
+                <tr>
+                    <td>@fav.Title</td>
+                    <td>@fav.Employer.Company</td>
+                    <td>@fav.Description</td>
+                    <td>@fav.State</td>
+                    <td><a asp-page="/Jobs/Details" asp-route-id="@fav?.JobId" class="btn btn-primary">Details</a></td>
+                    <td> <a asp-page="/Apply" asp-route-JobId="@fav?.JobId" class="btn btn-primary">Apply Now!</a> </td>
+                    <td>
+                        <form asp-page-handler="Delete">
+                            <button type="submit" class="btn btn-custom-red">Unfavorite</button>
+                            <input type="hidden" name="jobId" value=@fav?.JobId />
+                        </form>
+                    </td>
+                </tr>
+            }
+
+
+        </table>
+
+        <h2>All Jobs:</h2>
+        <table class="table">
+            <tr>
+                <th>Title</th>
+                <th>Employer</th>
+                <th>Description</th>
+                <th>State</th>
+                <th>More Information</th>
+                <th>Apply!</th>
+                <th>Favorite</th>
+            </tr>
+            @if (Model.jobs != null)
+            {
+                @foreach (var job in Model.jobs)
+                {
+                    <tr>
+                        <td>@job.Title</td>
+                        <td>@job.Employer.Company</td>
+                        <td>@job.Description</td>
+                        <td>@job.State</td>
+                        <td><a asp-page="/Jobs/Details" asp-route-id="@job?.JobId" class="btn btn-primary">Details</a></td>
+                        <td> <a asp-page="/Apply" asp-route-JobId="@job?.JobId" class="btn btn-primary">Apply Now!</a> </td>
+                        <td>
+                            <form method="post" asp-page-handler="Post">
+                                <button type="submit" class="btn btn-primary">Favorite</button>
+                                <input type="hidden" name="jobId" value=@job?.JobId />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Welcome to CareerConnector!</h1>
+        <p>Connecting Talent to Opportunity: Your Gateway to Career Success</p>
+        <p>Please login to start your Job Search.</p>
+    </div>
+}
