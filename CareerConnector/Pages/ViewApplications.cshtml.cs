@@ -10,9 +10,11 @@ namespace CareerConnector.Pages
         public readonly ccContext _context;
 
         public List<Application> applications { get; set; }
+
         public ViewApplicationsModel(ccContext context)
         {
             _context = context;
+            applications = new List<Application>(); 
         }
 
         public void OnGet(int JobId)
@@ -21,21 +23,18 @@ namespace CareerConnector.Pages
                 .Where(a => a.JobId == JobId)
                 .ToList();
 
-            var applications = new List<Application>();
-
             Console.WriteLine("Job Count " + jobs.Count());
             Console.WriteLine(JobId);
+
             foreach (var job in jobs)
             {
                 var application = _context.Applications.FirstOrDefault(a => a.ApplicationId == job.ApplicationId);
                 if (application != null)
                 {
                     Console.WriteLine("Application is " + application.Email);
-                    applications.Add(application); // Use Add method to add items to the list
+                    applications.Add(application); // Add to the property instead of a local variable
                 }
-
             }
-            
         }
     }
 }

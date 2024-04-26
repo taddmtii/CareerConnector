@@ -1,9 +1,38 @@
 ﻿@page
 @model CareerConnector.Pages.ViewApplicationsModel
 @{
+    
 }
 
-@foreach (var app in Model.applications)
-{
-    <h1>@app.Email</h1>
-} 
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Applicant Email</th>
+                <th>Applicant First Name</th>
+                <th>Applicant Last Name</th>
+                <th>Applicant Qualifications</th>
+                <th>Resume</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.applications.Count; i++)
+            {
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@Model.applications[i].Email</td>
+                    <td>@Model.applications[i].FirstName</td>
+                    <td>@Model.applications[i].LastName</td>
+                    <td>@Model.applications[i].Skills</td>
+                    <td>
+                        @if (Model.applications[i].Resume != null && Model.applications[i].Resume.Length > 0)
+                        {
+                            <a href="data:application/pdf;base64,@(Convert.ToBase64String(Model.applications[i].Resume))" download="Resume.pdf">Download Resume</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
