@@ -10,6 +10,15 @@ This web application is built using ASP.NET Razor Pages framework and utilizes a
 - Responsive Design: The application is designed to be responsive and accessible across different devices.
 - Applications: Users may create applications for several jobs, and employers can view all of the applications for thier job listings.
 
+Job Seeker View:
+
+![image](https://github.com/taddmtii/CareerConnector/assets/122894305/3d68e774-d821-4ad7-b016-815d2f69b18e)
+
+Employer View:
+
+![image](https://github.com/taddmtii/CareerConnector/assets/122894305/b98918c3-e4aa-48af-a05d-ab5e45c0305f)
+
+
 ## Installation
 
 1. Clone this repository to your local machine.
